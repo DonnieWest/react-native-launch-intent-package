@@ -24,6 +24,13 @@ public class PackageIntentModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void startComponent(String packageName, String component) {
+        Intent intent = new Intent().setComponent(new ComponentName(packageName, component));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getReactApplicationContext().startActivity(intent);
+    }
+
+    @ReactMethod
     public void canStartIntent(String packageName, Callback callback) {
         Intent intent = getIntent(packageName);
         callback.invoke(intent != null);
